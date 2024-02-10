@@ -43,5 +43,13 @@ for num in search_data[0].split():
     # push the message to the receiving imap server
     try:
         to_mail.append("inbox", flags, date, strdata[0][1])
+        from_mail.store(num, '+FLAGS', '\\Deleted')
     except Exception:
         "Error: Could not migrate message."
+
+from_mail.expunge()
+
+from_mail.close()
+from_mail.logout()
+to_mail.close()
+to_mail.logout()
